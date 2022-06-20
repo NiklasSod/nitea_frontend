@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import '../Styles/CreateProduct.scss';
+import axios from 'axios';
 
 export default function CreateProduct() {
     const [inputs, setInputs] = useState({});
@@ -12,18 +13,21 @@ export default function CreateProduct() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(inputs);
-        if (inputs.name && inputs.name.length < 3){
+        if (inputs.product_name && inputs.product_name.length < 3){
             alert('Name the game!');
-        } else if (inputs.img && inputs.img.length < 3){
+        } else if (inputs.product_url && inputs.product_url.length < 3){
             alert('Add a cover picture!');
-        } else if (inputs.currency === 'select'){
+        } else if (inputs.product_price && inputs.product_price === Number){
+            alert('Add a price!');
+        } else if (inputs.currency_id === 'select'){
             alert('Select a currency!');
-        } else if (inputs.category === 'select'){
+        } else if (inputs.category_id === 'select'){
             alert('Select a category!');
         } else {
-            console.log('You made it!');
-        }
+            let jsonInputs = JSON.stringify(inputs);
+            axios.post('http://localhost/niklas/arbetsprov_nitea/', jsonInputs);
+            // console.log(jsonInputs);
+        };
     };
 
     return(
@@ -33,34 +37,35 @@ export default function CreateProduct() {
                     <tbody>
                         <tr>
                             <th><label>Name: </label></th>
-                            <td><input type="text" name="name" id="input" onChange={handleChange} /></td>
+                            <td><input type="text" name="product_name" id="input" onChange={handleChange} /></td>
                         </tr>
                         <tr>
                             <th><label>Picture: </label></th>
-                            <td><input type="text" name="img" id="input" onChange={handleChange} /></td>
+                            <td><input type="text" name="product_url" id="input" onChange={handleChange} /></td>
                         </tr>
                         <tr>
                             <th><label>Price: </label></th>
                             <td>
-                            <select name="currency" id="currency" onChange={handleChange}>
+                            <input type="number" name="product_price" id="tiny_input" onChange={handleChange} />
+                            <select name="currency_id" id="currency" onChange={handleChange}>
                                 <option value="select">Select a currency</option>
-                                <option value="Sek">Sek</option>
-                                <option value="euro">Euro</option>
-                                <option value="dollar">Dollar</option>
+                                <option value="1">Sek</option>
+                                <option value="2">Euro</option>
+                                <option value="3">Dollar</option>
                             </select>
                             </td>
                         </tr>
                         <tr>
                             <th><label>Category: </label></th>
                             <td>
-                            <select name="category" id="category" onChange={handleChange}>
+                            <select name="category_id" id="category" onChange={handleChange}>
                                 <option value="select">Select a category</option>
-                                <option value="action">Action</option>
-                                <option value="adventure">Adventure</option>
-                                <option value="puzzle">Puzzle</option>
-                                <option value="racing">Racing</option>
-                                <option value="simulation">Simulation</option>
-                                <option value="party">Party</option>
+                                <option value="1">Action</option>
+                                <option value="2">Adventure</option>
+                                <option value="3">Puzzle</option>
+                                <option value="4">Racing</option>
+                                <option value="5">Simulation</option>
+                                <option value="6">Party</option>
                             </select>
                             </td>
                         </tr>
