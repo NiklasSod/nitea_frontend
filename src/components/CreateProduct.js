@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import '../Styles/CreateProduct.scss';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 export default function CreateProduct() {
     const [inputs, setInputs] = useState({});
+    let navigate = useNavigate(); 
 
     const handleChange = (e) => {
         const name = e.target.name;
@@ -26,7 +28,7 @@ export default function CreateProduct() {
         } else {
             let jsonInputs = JSON.stringify(inputs);
             axios.post('http://localhost/niklas/arbetsprov_nitea/', jsonInputs);
-            // console.log(jsonInputs);
+            navigate("/");
         };
     };
 
