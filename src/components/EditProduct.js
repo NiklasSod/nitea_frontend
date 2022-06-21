@@ -29,7 +29,7 @@ export default function EditProduct() {
         } else {
             let jsonInputs = JSON.stringify(inputs);
             axios.put(`http://localhost/niklas/arbetsprov_nitea/product/${id}/edit`, jsonInputs);
-            // navigate("/");
+            navigate("/");
         };
     };
 
