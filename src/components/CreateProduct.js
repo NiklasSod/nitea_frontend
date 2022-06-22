@@ -13,6 +13,7 @@ export default function CreateProduct() {
         setInputs(values => ({...values, [name]: value}));
     };
 
+    // temp improve
     const handleSubmit = (e) => {
         e.preventDefault();
         if (inputs.product_name && inputs.product_name.length < 3){
@@ -44,7 +45,10 @@ export default function CreateProduct() {
                         </tr>
                         <tr>
                             <th><label>Picture: </label></th>
-                            <td><input type="text" name="product_url" id="input" onChange={handleChange} /></td>
+                            <td><textarea type="text" name="product_url" id="input" onChange={handleChange} 
+                                    rows={2}
+                                />
+                            </td>
                         </tr>
                         <tr>
                             <th><label>Price: </label></th>
@@ -69,6 +73,7 @@ export default function CreateProduct() {
                                 <option value="4">Racing</option>
                                 <option value="5">Simulation</option>
                                 <option value="6">Party</option>
+                                <option value="7">Horror</option>
                             </select>
                             </td>
                         </tr>

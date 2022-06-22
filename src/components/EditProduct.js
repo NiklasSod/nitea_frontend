@@ -16,6 +16,7 @@ export default function EditProduct() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // temp improve
         if (inputs.product_name && inputs.product_name.length < 3){
             alert('Name the game!');
         } else if (inputs.product_url && inputs.product_url.length < 3){
@@ -38,11 +39,11 @@ export default function EditProduct() {
         axios.get(`http://localhost/niklas/arbetsprov_nitea/product/${id}/edit`).then(res => {
             setInputs(res.data);
         });
-    }, []);
+    }, [id]);
 
     return(
         <>
-            <h1>Edit</h1>
+            <h1>Edit Product</h1>
             <form id="create_form">
                 <table>
                     <tbody>
@@ -52,7 +53,10 @@ export default function EditProduct() {
                         </tr>
                         <tr>
                             <th><label>Picture: </label></th>
-                            <td><input defaultValue={inputs.product_url} type="text" name="product_url" id="input" onChange={handleChange} /></td>
+                            <td><textarea defaultValue={inputs.product_url} type="text" name="product_url" id="input" onChange={handleChange} 
+                                rows={2}
+                                />
+                            </td>
                         </tr>
                         <tr>
                             <th><label>Price: </label></th>
@@ -77,6 +81,7 @@ export default function EditProduct() {
                                 <option value="4">Racing</option>
                                 <option value="5">Simulation</option>
                                 <option value="6">Party</option>
+                                <option value="7">Horror</option>
                             </select>
                             </td>
                         </tr>

@@ -1,6 +1,18 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* chrome, safari, opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
 .App {
   text-align: center;
-  margin: 0 5em 0 5em;
+  margin: 0 8em 0 8em;
 }
 
 nav ul {
@@ -10,4 +22,13 @@ nav ul {
 nav ul li {
   display: inline-block;
   padding: 10px;
+  font-size: 2em;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color:blue;
 }

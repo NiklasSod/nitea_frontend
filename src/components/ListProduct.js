@@ -8,6 +8,8 @@ import deleteIcon from '../Styles/icons/icons8-remove-80.png';
 
 export default function ListProduct() {
     const [products, setProducts] = useState([]);
+    const [searchInput, setSearchInput] = useState('');
+    const [filteredResults, setFilteredResults] = useState([]);
 
     const imageOnClick = (name, id) => {
         const answer = window.confirm(`Are you sure you want to remove ${name}?`);
@@ -18,28 +20,46 @@ export default function ListProduct() {
         };
     };
 
+    const searchProduct = (e) => {
+        setSearchInput(e.target.value);
+        if(searchInput !== ''){
+            const filteredProducts = products.filter((product) => {
+                return Object.values(product).join('').toLowerCase().includes(searchInput.toLowerCase());
+            });
+            setFilteredResults(filteredProducts);
+        } else {
+            setFilteredResults(products)
+        };
+    };
+
     useEffect(() => {
         axios.get('http://localhost/niklas/arbetsprov_nitea/').then(res => {
             setProducts(res.data);
         });
     }, []);
-    
+
     return(
         <>
+            {/* temp change products to filteredResults and complete work on searchbar */}
+            {/* <input onChange={(e) => searchProduct(e)}></input> */}
+            <br />
             {products && products.map((product, key) => {
                 return (
+                    // temp card styling
                 <div id="card" key={key}>
                     <h1 id="card_title">{product.name}</h1>
                     <div>
                         <img id="cover" src={product.product_url} alt={product.name} />
                         <div id="info">
                             <p>{product.price} {product.currency}</p>
-                            <p>{product.genre}</p>
+                            <p id="genres">{product.genre}</p>
+                        <div id="icons">
                             <a href={`product/${product.id}/edit`}>
                                 {/* <img id="editIconMoving" alt="edit" src={editIconMoving} /> */}
                                 <img id="editIcon" alt="edit" src={editIcon} />
                             </a>
                             <img id="deleteIcon" alt="delete" src={deleteIcon} onClick={ () => imageOnClick(product.name, product.id) } />
+                        </div>
                         </div>
                     </div>
                 </div>
