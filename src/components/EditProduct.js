@@ -30,6 +30,7 @@ export default function EditProduct() {
             let jsonInputs = JSON.stringify(inputs);
             axios.put(`http://localhost/niklas/arbetsprov_nitea/product/${id}/edit`, jsonInputs);
             navigate("/");
+            window.location.reload(true);
         };
     };
 
@@ -57,7 +58,7 @@ export default function EditProduct() {
                             <th><label>Price: </label></th>
                             <td>
                             <input defaultValue={inputs.price} type="number" name="price" id="tiny_input" onChange={handleChange} />
-                            <select defaultValue={inputs.currency} name="currency" id="currency" onChange={handleChange}>
+                            <select defaultValue={1} name="currency" id="currency" onChange={handleChange}>
                                 <option value="select">Select a currency</option>
                                 <option value="1">Sek</option>
                                 <option value="2">Euro</option>
@@ -68,7 +69,7 @@ export default function EditProduct() {
                         <tr>
                             <th><label>Category: </label></th>
                             <td>
-                            <select defaultValue={inputs.genre} name="genre" id="category" onChange={handleChange}>
+                            <select name="genre" id="category" onChange={handleChange}>
                                 <option value="select">Select a category</option>
                                 <option value="1">Action</option>
                                 <option value="2">Adventure</option>

@@ -29,6 +29,7 @@ export default function CreateProduct() {
             let jsonInputs = JSON.stringify(inputs);
             axios.post('http://localhost/niklas/arbetsprov_nitea/', jsonInputs);
             navigate("/");
+            window.location.reload(true);
         };
     };
 

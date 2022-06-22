@@ -17,15 +17,11 @@ function App() {
             <li>
               <Link to="product/create">Create Product</Link>
             </li>
-            <li>
-              <Link to="product/delete">Delete Product</Link>
-            </li>
           </ul>
         </nav>
         <Routes>
           <Route path="/" element={<ListProduct />} />
           <Route path="product/create" element={<CreateProduct />} />
-          <Route path="product/delete" element={<DeleteProduct />} />
           <Route path="product/:id/edit" element={<EditProduct />} />
         </Routes>
       </BrowserRouter>
