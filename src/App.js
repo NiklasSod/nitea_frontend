@@ -3,7 +3,6 @@ import './App.css';
 import ListProduct from './components/ListProduct';
 import CreateProduct from './components/CreateProduct';
 import EditProduct from './components/EditProduct';
-import DeleteProduct from './components/DeleteProduct';
 
 function App() {
   return (

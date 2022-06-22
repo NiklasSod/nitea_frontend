@@ -38,4 +38,7 @@
     height: 2em;
     bottom: 0;
     position: absolute;
+        &:hover {
+            cursor: pointer;
+        }
 }

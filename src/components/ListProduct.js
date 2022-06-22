@@ -1,12 +1,22 @@
 import axios from 'axios';
 import '../Styles/ListProduct.scss';
 import { useEffect, useState } from 'react';
+
 // import editIconMoving from '../Styles/icons/icons8-edit.gif';
 import editIcon from '../Styles/icons/icons8-edit-64.png';
 import deleteIcon from '../Styles/icons/icons8-remove-80.png';
 
 export default function ListProduct() {
     const [products, setProducts] = useState([]);
+
+    const imageOnClick = (name, id) => {
+        const answer = window.confirm(`Are you sure you want to remove ${name}?`);
+        if(answer){
+            axios.delete(`http://localhost/niklas/arbetsprov_nitea/product/${id}/delete`).then(res => {
+                window.location.reload(true);
+            });
+        };
+    };
 
     useEffect(() => {
         axios.get('http://localhost/niklas/arbetsprov_nitea/').then(res => {
@@ -29,10 +39,7 @@ export default function ListProduct() {
                                 {/* <img id="editIconMoving" alt="edit" src={editIconMoving} /> */}
                                 <img id="editIcon" alt="edit" src={editIcon} />
                             </a>
-                            {/* add delete functionality */}
-                            <a href="temp">
-                                <img id="deleteIcon" alt="delete" src={deleteIcon} />
-                            </a>
+                            <img id="deleteIcon" alt="delete" src={deleteIcon} onClick={ () => imageOnClick(product.name, product.id) } />
                         </div>
                     </div>
                 </div>
