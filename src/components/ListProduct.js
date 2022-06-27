@@ -22,14 +22,6 @@ export default function ListProduct() {
 
     const searchProduct = (e) => {
         setSearchInput(e.target.value);
-        if(searchInput !== ''){
-            const filteredProducts = products.filter((product) => {
-                return Object.values(product).join('').toLowerCase().includes(searchInput.toLowerCase());
-            });
-            setFilteredResults(filteredProducts);
-        } else {
-            setFilteredResults(products)
-        };
     };
 
     useEffect(() => {
@@ -38,12 +30,23 @@ export default function ListProduct() {
         });
     }, []);
 
+    useEffect(() => {
+        if(searchInput !== ''){
+            const filteredProducts = products.filter((product) => {
+                return Object.values(product).join('').toLowerCase().includes(searchInput.toLowerCase());
+            });
+            setFilteredResults(filteredProducts);
+        } else {
+            setFilteredResults(products)
+        };
+    }, [searchInput, products]);
+
     return(
         <>
             {/* temp change products to filteredResults and complete work on searchbar */}
-            {/* <input onChange={(e) => searchProduct(e)}></input> */}
+            <input onChange={(e) => searchProduct(e)}></input>
             <br />
-            {products && products.map((product, key) => {
+            {filteredResults && filteredResults.map((product, key) => {
                 return (
                     // temp card styling
                 <div id="card" key={key}>
