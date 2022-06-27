@@ -33,7 +33,7 @@ export default function ListProduct() {
     useEffect(() => {
         if(searchInput !== ''){
             const filteredProducts = products.filter((product) => {
-                return Object.values(product).join('').toLowerCase().includes(searchInput.toLowerCase());
+                return Object.values(product.name).join('').toLowerCase().includes(searchInput.toLowerCase());
             });
             setFilteredResults(filteredProducts);
         } else {
@@ -48,21 +48,22 @@ export default function ListProduct() {
             <br />
             {filteredResults && filteredResults.map((product, key) => {
                 return (
-                    // temp card styling
-                <div id="card" key={key}>
+                <div id='card' key={key}>
                     <h1 id="card_title">{product.name}</h1>
-                    <div>
-                        <img id="cover" src={product.product_url} alt={product.name} />
+                    <div id="content">
+                        <div id='cover'>
+                            <img id="game_img" src={product.product_url} alt={product.name} />
+                            <p id={`game_${product.release_status === 0 ? "not_released" : "released"}`}></p>
+                        </div>
                         <div id="info">
                             <p>{product.price} {product.currency}</p>
                             <p id="genres">{product.genre}</p>
+                        </div>
                         <div id="icons">
                             <a href={`product/${product.id}/edit`}>
-                                {/* <img id="editIconMoving" alt="edit" src={editIconMoving} /> */}
                                 <img id="editIcon" alt="edit" src={editIcon} />
                             </a>
                             <img id="deleteIcon" alt="delete" src={deleteIcon} onClick={ () => imageOnClick(product.name, product.id) } />
-                        </div>
                         </div>
                     </div>
                 </div>
