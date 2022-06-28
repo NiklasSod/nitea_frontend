@@ -38,13 +38,10 @@ export default function ListProduct() {
                 // if its more than one category, split them then map and add
                 if (res.data[i].genre.includes(',')) {
                     let listOfCategories = res.data[i].genre.split(', ');
+                    console.log(listOfCategories)
                     for (let j = 0; j < listOfCategories.length; j++) {
                         if (!categories.includes(listOfCategories[j])) {
-                            listOfCategories.map(cat => {
-                                return (
-                                    categories.push(cat)
-                                )
-                            });
+                            categories.push(listOfCategories[j]);
                         };
                     };
                 // else simply add the one string
