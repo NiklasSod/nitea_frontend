@@ -1,16 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../Styles/CreateProduct.scss';
 import axios from 'axios';
+import { Multiselect } from 'multiselect-react-dropdown';
 import { useNavigate } from "react-router-dom";
 
 export default function CreateProduct() {
     const [inputs, setInputs] = useState({});
     let navigate = useNavigate(); 
 
+    const categoriesObject = [
+        'Action', 'Adventure', 'Puzzle', 'Racing', 'Simulation', 'Party', 'Horror'
+    ];
+
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setInputs(values => ({...values, [name]: value}));
+    };
+
+    const handleCategories = (e) => {
+        let valueToNumber = [];
+        for (let i = 0; i < categoriesObject.length; i++) {
+            if(e.includes(categoriesObject[i])){
+                valueToNumber.push(i + 1);
+            }
+        }
+        let categoryArray = {target: {name: 'category_id', value: valueToNumber}};
+        handleChange(categoryArray);
     };
 
     // temp improve
@@ -62,11 +78,11 @@ export default function CreateProduct() {
                             </select>
                             </td>
                         </tr>
-                        <tr>
+                        {/* <tr>
                             <th><label>Category: </label></th>
                             <td>
-                            <select name="category_id" id="category" onChange={handleChange}>
-                                <option value="select">Select a category</option>
+                            <select name="category_id" size={3} multiple id="category" onChange={handleChange}>
+                                <option value="select">Select one or more</option>
                                 <option value="1">Action</option>
                                 <option value="2">Adventure</option>
                                 <option value="3">Puzzle</option>
@@ -75,6 +91,17 @@ export default function CreateProduct() {
                                 <option value="6">Party</option>
                                 <option value="7">Horror</option>
                             </select>
+                            </td>
+                        </tr> */}
+                        <tr>
+                            <th>Categories: </th>
+                            <td>
+                            <Multiselect
+                                options={categoriesObject} id="category_selector"
+                                displayValue="value" showArrow style={{width: '30em'}}
+                                onSelect={e => handleCategories(e)} name="category_id"
+                                onRemove={e => handleCategories(e)} isObject={false}
+                            />
                             </td>
                         </tr>
                         <tr>

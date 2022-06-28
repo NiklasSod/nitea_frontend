@@ -38,7 +38,6 @@ export default function ListProduct() {
                 // if its more than one category, split them then map and add
                 if (res.data[i].genre.includes(',')) {
                     let listOfCategories = res.data[i].genre.split(', ');
-                    console.log(listOfCategories)
                     for (let j = 0; j < listOfCategories.length; j++) {
                         if (!categories.includes(listOfCategories[j])) {
                             categories.push(listOfCategories[j]);
@@ -49,7 +48,7 @@ export default function ListProduct() {
                     if (!categories.includes(res.data[i].genre)) {
                         categories.push(res.data[i].genre);
                     };
-                }
+                };
             };
         });
     }, [categories]);
@@ -88,7 +87,13 @@ export default function ListProduct() {
                         </div>
                         <div id="info">
                             <p>{product.price} {product.currency}</p>
-                            <p id="genres">{product.genre}</p>
+                            {categories.includes(product.genre)
+                            ?
+                                <p id="genres">{product.genre}</p>
+                            :
+                                // temp - fix line under for showing multi-genre better
+                                <p id="genres">{product.genre}</p>
+                            }
                         </div>
                         <div id="icons">
                             <a href={`product/${product.id}/edit`}>
