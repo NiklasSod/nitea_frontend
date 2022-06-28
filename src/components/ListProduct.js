@@ -1,6 +1,6 @@
 import axios from 'axios';
 import '../Styles/ListProduct.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 // import editIconMoving from '../Styles/icons/icons8-edit.gif';
 import editIcon from '../Styles/icons/icons8-edit-64.png';
@@ -8,8 +8,9 @@ import deleteIcon from '../Styles/icons/icons8-remove-80.png';
 
 export default function ListProduct() {
     const [products, setProducts] = useState([]);
-    const [searchInput, setSearchInput] = useState('');
+    const [searchInput, setSearchInput] = useState("");
     const [filteredResults, setFilteredResults] = useState([]);
+    const categories = useMemo(() => ["Show All"], []);
 
     const imageOnClick = (name, id) => {
         const answer = window.confirm(`Are you sure you want to remove ${name}?`);
@@ -24,16 +25,26 @@ export default function ListProduct() {
         setSearchInput(e.target.value);
     };
 
+    const searchCategory = (e) => {
+        console.log(e.target.innerText);
+        setSearchInput(e.target.innerText);
+    }
+
     useEffect(() => {
         axios.get('http://localhost/niklas/arbetsprov_nitea/').then(res => {
             setProducts(res.data);
+            for(let i = 0; i < res.data.length; i++){
+                if (!categories.includes(res.data[i].genre)) {
+                    categories.push(res.data[i].genre);
+                };
+            };
         });
-    }, []);
+    }, [categories]);
 
     useEffect(() => {
-        if(searchInput !== ''){
+        if(searchInput !== ('Show All' || '')){
             const filteredProducts = products.filter((product) => {
-                return Object.values(product.name).join('').toLowerCase().includes(searchInput.toLowerCase());
+                return Object.values(product).join('').toLowerCase().includes(searchInput.toLowerCase());
             });
             setFilteredResults(filteredProducts);
         } else {
@@ -43,8 +54,14 @@ export default function ListProduct() {
 
     return(
         <>
-            {/* temp change products to filteredResults and complete work on searchbar */}
-            <input onChange={(e) => searchProduct(e)}></input>
+            <p id="searchbar">Search: </p><input onChange={(e) => searchProduct(e)}></input>
+            {categories.length > 0 && categories.map((category, key) => {
+                return (
+                    <button id="category-btn" key={key} onClick={(e) => searchCategory(e)}>
+                        {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </button>
+                )
+            })}
             <br />
             {filteredResults && filteredResults.map((product, key) => {
                 return (

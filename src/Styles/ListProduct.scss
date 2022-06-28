@@ -1,3 +1,28 @@
+#searchbar {
+    display: inline;
+    margin-right: 0.4em;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2em;
+}
+
+#category-btn {
+    display: inline-block;
+    margin-left: 0.5em;
+    padding: 0.4em 0.6em;
+    border-radius: 6px;
+    border: 1px solid white;
+    color: #fff;
+    background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+    &:hover {
+        cursor: pointer;
+        border: 1px solid black;
+    }
+}
+
+#category-btn:nth-child(even) {
+    background: linear-gradient(180deg, #135ecf 0%, #467fe9 100%);
+}
+
 #card {
     width: calc((1/4)*100%);
     height: calc((1/4)*100%);
