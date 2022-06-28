@@ -26,6 +26,7 @@ export default function ListProduct() {
     };
 
     const searchCategory = (e) => {
+        document.getElementById("searchbarInput").value = '';
         setSearchInput(e.target.innerText);
     }
 
@@ -55,7 +56,7 @@ export default function ListProduct() {
 
     return(
         <>
-            <p id="searchbar">Search: </p><input onChange={(e) => searchProduct(e)}></input>
+            <p id="searchbar">Search: </p><input id="searchbarInput" onChange={(e) => searchProduct(e)}></input>
             {categories.length > 0 && categories.map((category, key) => {
                 return (
                     <button id="category-btn" key={key} onClick={(e) => searchCategory(e)}>
