@@ -35,9 +35,24 @@ export default function ListProduct() {
             setProducts(res.data);
             // add categories for secondary user-filter
             for(let i = 0; i < res.data.length; i++){
-                if (!categories.includes(res.data[i].genre)) {
-                    categories.push(res.data[i].genre);
-                };
+                // if its more than one category, split them then map and add
+                if (res.data[i].genre.includes(',')) {
+                    let listOfCategories = res.data[i].genre.split(', ');
+                    for (let j = 0; j < listOfCategories.length; j++) {
+                        if (!categories.includes(listOfCategories[j])) {
+                            listOfCategories.map(cat => {
+                                return (
+                                    categories.push(cat)
+                                )
+                            });
+                        };
+                    };
+                // else simply add the one string
+                } else {
+                    if (!categories.includes(res.data[i].genre)) {
+                        categories.push(res.data[i].genre);
+                    };
+                }
             };
         });
     }, [categories]);
