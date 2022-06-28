@@ -85,6 +85,13 @@ export default function EditProduct() {
                             </select>
                             </td>
                         </tr>
+                        <tr>
+                            <th>Game released: </th>
+                            <td>
+                                No <input type="radio" id="released" name="released" value={0} onChange={handleChange} />
+                                Yes <input type="radio" id="released" name="released" value={1} onChange={handleChange} />
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <br />
