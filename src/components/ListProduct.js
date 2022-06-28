@@ -9,7 +9,7 @@ import deleteIcon from '../Styles/icons/icons8-remove-80.png';
 export default function ListProduct() {
     const [products, setProducts] = useState([]);
     const [searchInput, setSearchInput] = useState("");
-    const [filteredResults, setFilteredResults] = useState([]);
+    const [filteredResults, setFilteredResults] = useState();
     const categories = useMemo(() => ["Show All"], []);
 
     const imageOnClick = (name, id) => {
@@ -26,13 +26,13 @@ export default function ListProduct() {
     };
 
     const searchCategory = (e) => {
-        console.log(e.target.innerText);
         setSearchInput(e.target.innerText);
     }
 
     useEffect(() => {
         axios.get('http://localhost/niklas/arbetsprov_nitea/').then(res => {
             setProducts(res.data);
+            // add categories for secondary user-filter
             for(let i = 0; i < res.data.length; i++){
                 if (!categories.includes(res.data[i].genre)) {
                     categories.push(res.data[i].genre);
@@ -41,10 +41,11 @@ export default function ListProduct() {
         });
     }, [categories]);
 
+    // make searchbar and category-serching react directly on change with a secondary useEffect
     useEffect(() => {
         if(searchInput !== ('Show All' || '')){
             const filteredProducts = products.filter((product) => {
-                return Object.values(product).join('').toLowerCase().includes(searchInput.toLowerCase());
+                return Object.values([product.name, product.genre]).join('').toLowerCase().includes(searchInput.toLowerCase());
             });
             setFilteredResults(filteredProducts);
         } else {
