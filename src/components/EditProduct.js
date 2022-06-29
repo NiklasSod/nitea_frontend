@@ -60,6 +60,9 @@ export default function EditProduct() {
         axios.get(`http://localhost/niklas/arbetsprov_nitea/product/${id}/edit`).then(res => {
             setInputs(res.data);
             let genreArray = res.data.genre.split(', ');
+            genreArray = genreArray.map(e => {
+                return e.charAt(0).toUpperCase() + e.substring(1).toLowerCase();
+            });
             setPreSelectedCategories(genreArray);
             let curr = res.data.currency;
             if(curr === "sek") curr = "1";
@@ -90,7 +93,8 @@ export default function EditProduct() {
                             <th><label>Price: </label></th>
                             <td>
                             <input defaultValue={inputs.price} type="number" name="price" id="tiny_input" onChange={handleChange} />
-                            <select value={currentCurrency} multiple={false} name="currency" id="currency" onChange={handleChange}>
+                            {/* temp fix currency to be pre-selected with old value */}
+                            <select defaultValue={currentCurrency} multiple={false} name="currency" id="currency" onChange={handleChange}>
                                 <option value="select">Select a currency</option>
                                 <option value="1">Sek</option>
                                 <option value="2">Euro</option>
