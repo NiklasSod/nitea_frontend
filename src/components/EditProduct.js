@@ -8,6 +8,7 @@ export default function EditProduct() {
     const [inputs, setInputs] = useState({});
     const [preSelectedCategories, setPreSelectedCategories] = useState([]);
     const [currentCurrency, setCurrentCurrency] = useState();
+    const [radioBtn, setRadioBtn] = useState(0);
 
     const navigate = useNavigate(); 
     const {id} = useParams();
@@ -69,8 +70,9 @@ export default function EditProduct() {
             if(curr === "euro") curr = "2";
             if(curr === "dollar") curr = "3";
             setCurrentCurrency(curr);
+            setRadioBtn(res.data.release_status);
         });
-    }, [id]);
+    }, [id, radioBtn]);
 
     return(
         <>
@@ -117,8 +119,8 @@ export default function EditProduct() {
                         <tr>
                             <th>Game released: </th>
                             <td>
-                                No <input type="radio" id="released" name="released" value={0} onChange={handleChange} />
-                                Yes <input type="radio" id="released" name="released" value={1} onChange={handleChange} />
+                                No <input checked={radioBtn === 0 ? true : false} type="radio" id="released" name="released" value={0} onChange={handleChange} />
+                                Yes <input checked={radioBtn === 1 ? true : false} type="radio" id="released" name="released" value={1} onChange={handleChange} />
                             </td>
                         </tr>
                     </tbody>
