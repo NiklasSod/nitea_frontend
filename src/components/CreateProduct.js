@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
-import '../Styles/CreateProduct.scss';
-import axios from 'axios';
+import { useState } from 'react';
 import { Multiselect } from 'multiselect-react-dropdown';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import '../Styles/CreateProduct.scss';
 
 export default function CreateProduct() {
     const [inputs, setInputs] = useState({});
+
     let navigate = useNavigate(); 
 
     const categoriesObject = [
@@ -19,6 +20,7 @@ export default function CreateProduct() {
     };
 
     const handleCategories = (e) => {
+        // convert for example string "puzzle" to 3
         let valueToNumber = [];
         for (let i = 0; i < categoriesObject.length; i++) {
             if(e.includes(categoriesObject[i])){
@@ -29,7 +31,8 @@ export default function CreateProduct() {
         handleChange(categoryArray);
     };
 
-    // temp improve
+    // temp improve alerts to something better looking
+    // temp improve user input control checks
     const handleSubmit = (e) => {
         e.preventDefault();
         if (inputs.product_name && inputs.product_name.length < 3){
@@ -78,21 +81,6 @@ export default function CreateProduct() {
                             </select>
                             </td>
                         </tr>
-                        {/* <tr>
-                            <th><label>Category: </label></th>
-                            <td>
-                            <select name="category_id" size={3} multiple id="category" onChange={handleChange}>
-                                <option value="select">Select one or more</option>
-                                <option value="1">Action</option>
-                                <option value="2">Adventure</option>
-                                <option value="3">Puzzle</option>
-                                <option value="4">Racing</option>
-                                <option value="5">Simulation</option>
-                                <option value="6">Party</option>
-                                <option value="7">Horror</option>
-                            </select>
-                            </td>
-                        </tr> */}
                         <tr>
                             <th>Categories: </th>
                             <td>
