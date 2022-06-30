@@ -32,6 +32,7 @@
 
 #card {
     width: 28em;
+    min-height: 14em;
     display: inline-block;
     margin: 0.6em;
     position: relative;
@@ -39,6 +40,8 @@
     border-radius: 1em;
     padding: 0.3em;
     border: 1px solid rgb(160, 159, 159);
+    transform: scale(1);
+    transition: all 1s ease;
     &:hover {
         transform: scale(1.03);
         transition: all 1s ease;

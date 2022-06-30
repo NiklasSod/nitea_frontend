@@ -30,26 +30,25 @@ export default function ListProduct() {
         setSearchInput(e.target.innerText);
     }
 
+    const createGenreArray = (products) => {
+        for (let i = 0; i < products.length; i++) {
+            let genreArray = products[i].genre.split(', ');
+            products[i].genre = genreArray;
+        }
+        return products;
+    }
+
     useEffect(() => {
         axios.get('http://localhost/niklas/arbetsprov_nitea/').then(res => {
-            let allProducts = res.data;
-            setProducts(allProducts);
+            let p = createGenreArray(res.data);
+            setProducts(p);
             // add categories for secondary user-filter
-            for(let i = 0; i < res.data.length; i++){
-                // if its more than one category, split them then map and add
-                if (res.data[i].genre.includes(',')) {
-                    let listOfCategories = res.data[i].genre.split(', ');
-                    for (let j = 0; j < listOfCategories.length; j++) {
-                        if (!categories.includes(listOfCategories[j])) {
-                            categories.push(listOfCategories[j]);
-                        };
+            for(let i = 0; i < p.length; i++){
+                for(let j = 0; j < p[i].genre.length; j++){
+                    if (!categories.includes(p[i].genre[j])) {
+                        categories.push(p[i].genre[j]);
                     };
-                // else simply add the one string
-                } else {
-                    if (!categories.includes(res.data[i].genre)) {
-                        categories.push(res.data[i].genre);
-                    };
-                };
+                }
             };
         });
     }, [categories]);
@@ -89,7 +88,11 @@ export default function ListProduct() {
                         </div>
                         <div id="info">
                             <p id="price">{product.price} {product.currency}</p>
-                            <p id="genres">{product.genre}</p>
+                            {product.genre.map((g, k) => {
+                                return (
+                                    <p key={k} id="genres">{g}</p>
+                                )
+                            })}
                         </div>
                         <div id="icons">
                             <a href={`product/${product.id}/edit`}>
