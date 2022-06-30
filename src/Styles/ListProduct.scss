@@ -1,8 +1,16 @@
-#searchbar {
+#search {
     display: inline;
     margin-right: 0.4em;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.2em;
+}
+
+#searchIcon {
+    width: 2%;
+    margin-right:0.4em;
+}
+
+#searchbarInput {
+    zoom: 1.2;
+    width: 8em;
 }
 
 #category-btn {
@@ -16,7 +24,7 @@
     &:hover {
         cursor: pointer;
         border: 1px solid black;
-        box-shadow: 0.2em 0.2em rgb(0, 0, 72);
+        box-shadow: 0.1em 0.1em rgb(71, 71, 235);
     }
 }
 
@@ -43,7 +51,7 @@
     transform: scale(1);
     transition: all 1s ease;
     &:hover {
-        transform: scale(1.03);
+        transform: scale(1.05);
         transition: all 1s ease;
     }
 }
