@@ -5,6 +5,14 @@
   box-sizing: border-box;
 }
 
+html {
+  background-color: rgba(228, 226, 226, 0.62);
+}
+
+body, h1, p {
+  margin: 0;
+}
+
 /* chrome, safari, opera */
 ::-webkit-scrollbar {
   display: none;

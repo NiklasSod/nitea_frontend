@@ -32,7 +32,8 @@ export default function ListProduct() {
 
     useEffect(() => {
         axios.get('http://localhost/niklas/arbetsprov_nitea/').then(res => {
-            setProducts(res.data);
+            let allProducts = res.data;
+            setProducts(allProducts);
             // add categories for secondary user-filter
             for(let i = 0; i < res.data.length; i++){
                 // if its more than one category, split them then map and add
@@ -76,6 +77,7 @@ export default function ListProduct() {
                 )
             })}
             <br />
+            <div id="container">
             {filteredResults && filteredResults.map((product, key) => {
                 return (
                 <div id='card' key={key}>
@@ -86,14 +88,8 @@ export default function ListProduct() {
                             <p id={`game_${product.release_status === 0 ? "not_released" : "released"}`}></p>
                         </div>
                         <div id="info">
-                            <p>{product.price} {product.currency}</p>
-                            {categories.includes(product.genre)
-                            ?
-                                <p id="genres">{product.genre}</p>
-                            :
-                                // temp - fix line under for showing multi-genre better
-                                <p id="genres">{product.genre}</p>
-                            }
+                            <p id="price">{product.price} {product.currency}</p>
+                            <p id="genres">{product.genre}</p>
                         </div>
                         <div id="icons">
                             <a href={`product/${product.id}/edit`}>
@@ -105,6 +101,7 @@ export default function ListProduct() {
                 </div>
                 )
             })}
+            </div>
         </>
     )
 };

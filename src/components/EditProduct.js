@@ -8,7 +8,7 @@ export default function EditProduct() {
     const [inputs, setInputs] = useState({});
     const [preSelectedCategories, setPreSelectedCategories] = useState([]);
     const [currentCurrency, setCurrentCurrency] = useState();
-    const [radioBtn, setRadioBtn] = useState(0);
+    const [radioBtn, setRadioBtn] = useState();
 
     const navigate = useNavigate(); 
     const {id} = useParams();
@@ -118,10 +118,12 @@ export default function EditProduct() {
                         </tr>
                         <tr>
                             <th>Game released: </th>
+                            {(radioBtn === 0 || radioBtn === 1) &&
                             <td>
-                                No <input checked={radioBtn === 0 ? true : false} type="radio" id="released" name="released" value={0} onChange={handleChange} />
-                                Yes <input checked={radioBtn === 1 ? true : false} type="radio" id="released" name="released" value={1} onChange={handleChange} />
+                                No <input defaultChecked={radioBtn === 0 ? true : false} type="radio" id="released" name="released" value={0} onChange={handleChange} />
+                                Yes <input defaultChecked={radioBtn === 1 ? true : false} type="radio" id="released" name="released" value={1} onChange={handleChange} />
                             </td>
+                            }
                         </tr>
                     </tbody>
                 </table>
